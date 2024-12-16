@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Screenshot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Upload Screenshot</h1>
+    <input type="file" id="fileInput" accept="image/png">
+    <button onclick="uploadImage()">Upload</button>
+
+    <script>
+        function uploadImage() {
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput.files.length === 0) {
+                alert('Please select a file.');
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const fileName = file.name;
+
+            // Simulate uploading by storing the filename in local storage
+            const storedScreenshots = JSON.parse(localStorage.getItem('screenshots')) || [];
+            storedScreenshots.push(fileName);
+            localStorage.setItem('screenshots', JSON.stringify(storedScreenshots));
+
+            alert('Image uploaded successfully!');
+        }
+    </script>
+</body>
+</html>
