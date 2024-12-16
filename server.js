@@ -4,7 +4,6 @@ const fs = require('fs');
 const path = require('path');
 
 const app = express();
-const port = 3000;
 
 app.use(express.static('public'));
 app.use(fileUpload());
@@ -35,6 +34,4 @@ app.post('/upload', (req, res) => {
     });
 });
 
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
-});
+module.exports = app;
