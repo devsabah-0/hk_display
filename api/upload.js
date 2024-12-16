@@ -6,8 +6,7 @@ module.exports = (req, res) => {
     return res.status(405).send('Method Not Allowed');
   }
 
-  const file = req.body.file;
-  const fileName = req.body.fileName;
+  const { file, fileName } = req.body;
 
   if (!file || !fileName) {
     return res.status(400).send('File and filename are required');
