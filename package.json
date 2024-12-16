@@ -1,0 +1,9 @@
+{
+    "name": "screenshot-viewer",
+    "version": "1.0.0",
+    "main": "server.js",
+    "dependencies": {
+        "express": "^4.21.2",
+        "express-fileupload": "^1.5.1"
+    }
+}

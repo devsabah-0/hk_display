@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Screenshot Viewer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="date-header"></h1>
+    <img id="screenshot" alt="Latest Screenshot">
+
+    <script>
+        // Function to format the date as dd-MONTH-yyyy
+        function formatDate(date) {
+            const options = { day: '2-digit', month: 'short', year: 'numeric' };
+            return date.toLocaleDateString('en-US', options).replace(/ /g, '-').toUpperCase();
+        }
+
+        // Set the header to the current date
+        document.getElementById('date-header').innerText = formatDate(new Date());
+
+        // Fetch the list of screenshots and display the latest one
+        fetch('/images')
+            .then(response => response.json())
+            .then(screenshots => {
+                screenshots.sort((a, b) => {
+                    const dateA = new Date(a.match(/\d{4}-\d{2}-\d{2} at \d{2}\.\d{2}\.\d{2}/)[0].replace(' at ', 'T').replace(/\./g, ':'));
+                    const dateB = new Date(b.match(/\d{4}-\d{2}-\d{2} at \d{2}\.\d{2}\.\d{2}/)[0].replace(' at ', 'T').replace(/\./g, ':'));
+                    return dateB - dateA;
+                });
+                document.getElementById('screenshot').src = screenshots.length ? `images/${screenshots[0]}` : '';
+            })
+            .catch(error => console.error('Error fetching images:', error));
+    </script>
+</body>
+</html>
