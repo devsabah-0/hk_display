@@ -30,18 +30,20 @@
         // Set the header to the current date
         document.getElementById('date-header').innerText = formatDate(new Date());
 
-        // Fetch the list of screenshots and display the latest one
-        fetch('/images')
-            .then(response => response.json())
-            .then(screenshots => {
-                screenshots.sort().reverse(); // Sort by name and reverse for latest
-                if (screenshots.length) {
-                    document.getElementById('screenshot').src = `/images/${screenshots[0]}`;
-                } else {
-                    document.getElementById('screenshot').alt = 'No screenshots available';
-                }
-            })
-            .catch(error => console.error('Error fetching images:', error));
+        // List of screenshots
+        const screenshots = [
+            'CleanShot 2024-12-14 at 10.30.00@2x.png',
+            'CleanShot 2024-12-15 at 11.00.00@2x.png',
+            'CleanShot 2024-12-16 at 12.00.00@2x.png'
+        ];
+
+        // Sort and display the latest screenshot
+        screenshots.sort().reverse();
+        if (screenshots.length) {
+            document.getElementById('screenshot').src = `images/${screenshots[0]}`;
+        } else {
+            document.getElementById('screenshot').alt = 'No screenshots available';
+        }
     </script>
 </body>
 </html>
