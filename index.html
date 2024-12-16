@@ -34,11 +34,7 @@
         fetch('/images')
             .then(response => response.json())
             .then(screenshots => {
-                screenshots.sort((a, b) => {
-                    const dateA = new Date(a.match(/\d{4}-\d{2}-\d{2} at \d{2}\.\d{2}\.\d{2}/)[0].replace(' at ', 'T').replace(/\./g, ':'));
-                    const dateB = new Date(b.match(/\d{4}-\d{2}-\d{2} at \d{2}\.\d{2}\.\d{2}/)[0].replace(' at ', 'T').replace(/\./g, ':'));
-                    return dateB - dateA;
-                });
+                screenshots.sort().reverse(); // Sort by name and reverse for latest
                 if (screenshots.length) {
                     document.getElementById('screenshot').src = `/images/${screenshots[0]}`;
                 } else {
