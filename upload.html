@@ -26,13 +26,24 @@
             }
 
             const file = fileInput.files[0];
-            const fileName = file.name;
-
-            const storedScreenshots = JSON.parse(localStorage.getItem('screenshots')) || [];
-            storedScreenshots.push(fileName);
-            localStorage.setItem('screenshots', JSON.stringify(storedScreenshots));
-
-            alert('Image uploaded successfully!');
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const base64File = event.target.result.split(',')[1];
+                fetch('/api/upload', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        file: base64File,
+                        fileName: file.name
+                    })
+                })
+                .then(response => response.text())
+                .then(data => alert(data))
+                .catch(error => console.error('Error uploading file:', error));
+            };
+            reader.readAsDataURL(file);
         }
     </script>
 </body>
