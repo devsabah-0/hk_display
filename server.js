@@ -8,6 +8,14 @@ const app = express();
 app.use(express.static('public'));
 app.use(fileUpload());
 
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/upload', (req, res) => {
+    res.sendFile(path.join(__dirname, 'upload.html'));
+});
+
 app.get('/images', (req, res) => {
     fs.readdir(path.join(__dirname, 'public', 'images'), (err, files) => {
         if (err) {
