@@ -6,9 +6,13 @@ function formatDate(date) {
 document.getElementById('date-header').innerText = formatDate(new Date());
 
 const defaultScreenshots = [
-    'CleanShot 2024-12-14 at 10.30.00@2x.png',
-    'CleanShot 2024-12-15 at 11.00.00@2x.png',
-    'CleanShot 2024-12-16 at 12.00.00@2x.png'
+            'CleanShot 2024-12-17 at 00.38.49@2x.png',
+            'CleanShot 2024-12-17 at 00.40.07@2x.png',
+            'CleanShot 2024-12-17 at 00.42.25@2x.png',
+            'CleanShot 2024-12-17 at 00.46.28@2x.png',
+            'CleanShot 2024-12-17 at 01.00.05@2x.png',
+            'CleanShot 2024-12-17 at 01.03.00@2x.png',
+            'CleanShot 2024-12-17 at 01.32.07@2x.png'
 ];
 
 const storedScreenshots = JSON.parse(localStorage.getItem('screenshots')) || [];
@@ -21,7 +25,9 @@ screenshots.sort((a, b) => {
 });
 
 if (screenshots.length) {
-    document.getElementById('screenshot').src = `images/${screenshots[0]}`;
+    const latestScreenshot = `images/${screenshots[0]}`;
+    console.log('Displaying latest screenshot:', latestScreenshot);
+    document.getElementById('screenshot').src = latestScreenshot;
 } else {
     document.getElementById('screenshot').alt = 'No screenshots available';
 }
