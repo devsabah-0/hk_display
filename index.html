@@ -39,7 +39,11 @@
                     const dateB = new Date(b.match(/\d{4}-\d{2}-\d{2} at \d{2}\.\d{2}\.\d{2}/)[0].replace(' at ', 'T').replace(/\./g, ':'));
                     return dateB - dateA;
                 });
-                document.getElementById('screenshot').src = screenshots.length ? `/images/${screenshots[0]}` : '';
+                if (screenshots.length) {
+                    document.getElementById('screenshot').src = `/images/${screenshots[0]}`;
+                } else {
+                    document.getElementById('screenshot').alt = 'No screenshots available';
+                }
             })
             .catch(error => console.error('Error fetching images:', error));
     </script>
