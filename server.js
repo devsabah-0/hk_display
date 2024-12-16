@@ -6,13 +6,11 @@ const path = require('path');
 const app = express();
 const port = 3000;
 
-app.use(express.static('images'));
-app.use(express.static(__dirname));
+app.use(express.static('public'));
 app.use(fileUpload());
 
-// Endpoint to list images
 app.get('/images', (req, res) => {
-    fs.readdir(path.join(__dirname, 'images'), (err, files) => {
+    fs.readdir(path.join(__dirname, 'public', 'images'), (err, files) => {
         if (err) {
             return res.status(500).send('Unable to scan directory');
         }
@@ -21,14 +19,13 @@ app.get('/images', (req, res) => {
     });
 });
 
-// Endpoint to upload images
 app.post('/upload', (req, res) => {
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send('No files were uploaded.');
     }
 
     let screenshot = req.files.screenshot;
-    let uploadPath = path.join(__dirname, 'images', screenshot.name);
+    let uploadPath = path.join(__dirname, 'public', 'images', screenshot.name);
 
     screenshot.mv(uploadPath, function(err) {
         if (err) {
