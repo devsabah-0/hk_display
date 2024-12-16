@@ -28,7 +28,6 @@
             const file = fileInput.files[0];
             const fileName = file.name;
 
-            // Simulate uploading by storing the filename in local storage
             const storedScreenshots = JSON.parse(localStorage.getItem('screenshots')) || [];
             storedScreenshots.push(fileName);
             localStorage.setItem('screenshots', JSON.stringify(storedScreenshots));
